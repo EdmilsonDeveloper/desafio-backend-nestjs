@@ -1,6 +1,9 @@
 import { ConfigService } from "@nestjs/config"
 import { Sequelize } from "sequelize-typescript"
-import { Task } from "./entity/task.entity";
+import { Task } from "./entities/task.entity";
+import { Tag } from "./entities/tag.entity";
+import { User } from "./entities/user.entity";
+import { Session } from "./entities/session.entity";
 require('dotenv').config();
 
 export const dbProviders = [{
@@ -13,7 +16,7 @@ export const dbProviders = [{
             password: process.env.DB_PASSWORD,
             database: process.env.DB_DATABASE,
         });
-        sequelize.addModels([Task]);
+        sequelize.addModels([Task, Tag, User, Session]);
         await sequelize.sync();
         return sequelize;
     }
