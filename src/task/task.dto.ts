@@ -1,4 +1,4 @@
-import { IsDateString, IsEnum, IsOptional, IsString, IsUUID, MaxLength, MinLength } from "class-validator";
+import { IsDateString, IsEnum, IsNotEmpty, IsOptional, IsString, IsUUID, MaxLength, MinLength } from "class-validator";
 
 export enum TaskStatusEnum {
     IN_PROGRESS = 'IN_PROGRESS',
@@ -26,6 +26,7 @@ id: string;
 @IsString()
 @MinLength(3)
 @MaxLength(256)
+@IsNotEmpty()
 title: string;
 
 @IsEnum(TaskStatusEnum)
@@ -35,6 +36,7 @@ status: string;
 @IsString()
 @MinLength(5)
 @MaxLength(512)
+@IsNotEmpty()
 description: string;
 
 @IsEnum(TaskPriorityEnum)
