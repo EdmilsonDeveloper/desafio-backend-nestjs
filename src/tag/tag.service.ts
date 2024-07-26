@@ -12,11 +12,16 @@ export class TagService {
 ){}
 
   async create(tagData: CreateTagDto): Promise<Tag> {
-    return
+    const createdTag = {
+      name: tagData.name,
+      color: tagData.color,
+    }
+
+    return await this.tagModel.create(createdTag);
   }
 
   findAll(): Promise<Tag[]> {
-    return
+    return this.tagModel.findAll();
   }
 
   // findQuery(id: number) {
