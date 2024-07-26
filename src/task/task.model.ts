@@ -1,12 +1,12 @@
-import { Column, DataType, Model, PrimaryKey, Table } from "sequelize-typescript";
-import { User } from "./user.entity";
+import { DataTypes } from "sequelize";
+import { Column, DataType, Model, PrimaryKey, Sequelize, Table } from "sequelize-typescript";
 
 
 @Table({
     tableName: "task",
     freezeTableName: true,
 })
-export class Task extends Model {
+export class Task extends Model<Task> {
     @PrimaryKey
     @Column({
         type: DataType.UUID,
@@ -21,7 +21,8 @@ export class Task extends Model {
     title: string
 
     @Column({
-        type: DataType.TEXT
+        type: DataType.TEXT,
+        defaultValue: 'In Progress',
     })
     status: string
     
@@ -36,13 +37,13 @@ export class Task extends Model {
     priority: number
 
     @Column({
-        type: DataType.DATE
+        type: DataType.DATEONLY
     })
     expirationDate: Date
 
-    @Column({
-        type: DataType.TEXT,
-        references: { model: User, key: "id" },
-    })
-    userId: number;
+    // @Column({
+    //     type: DataType.TEXT,
+    //     references: { model: User, key: "id" },
+    // })
+    // userId: string; 
 }

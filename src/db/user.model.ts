@@ -1,12 +1,10 @@
 import { Column, DataType, Model, PrimaryKey, Table } from "sequelize-typescript";
-import { User } from "./user.entity";
-
 
 @Table({
-    tableName: "tag",
+    tableName: "user",
     freezeTableName: true,
 })
-export class Tag extends Model {
+export class User extends Model {
     @PrimaryKey
     @Column({
         type: DataType.UUID,
@@ -14,20 +12,16 @@ export class Tag extends Model {
         unique: true
     })
     id: string
-    
-    @Column({
-        type: DataType.TEXT
-    })
-    name: string
-    
-    @Column({
-        type: DataType.TEXT
-    })
-    color: string
 
     @Column({
         type: DataType.TEXT,
-        references: { model: User, key: "id" },
+        allowNull: false,
     })
-    userId: number;
+    username: string
+
+    @Column({
+        type: DataType.TEXT,
+        allowNull: false,
+    })
+    password: string
 }

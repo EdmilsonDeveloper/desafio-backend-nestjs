@@ -1,10 +1,19 @@
 import { Module } from '@nestjs/common';
-import { DbModule } from './db/db.module';
-import { ConfigModule } from '@nestjs/config';
+import { TaskModule } from './task/task.module';
+import { SequelizeModule } from '@nestjs/sequelize';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true}),DbModule],
-  controllers: [],
-  providers: [],
+  imports:[
+    SequelizeModule.forRoot({
+      dialect: 'postgres',
+            host: process.env.DB_HOST || 'localhost',
+            username: process.env.DB_USER || 'postgres',
+            password: process.env.DB_PASSWORD || 'admin',
+            database: process.env.DB_DATABASE || 'desafio_backend',
+            autoLoadModels: true,
+            synchronize: true,
+    }),
+    TaskModule],
+    exports:[SequelizeModule]
 })
 export class AppModule {}
