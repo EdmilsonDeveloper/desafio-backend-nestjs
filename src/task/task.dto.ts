@@ -1,4 +1,4 @@
-import { IsDateString, IsEnum, IsNumber, IsOptional, IsString, IsUUID, MaxLength, minLength, MinLength } from "class-validator";
+import { IsDateString, IsEnum, IsOptional, IsString, IsUUID, MaxLength, MinLength } from "class-validator";
 
 export enum TaskStatusEnum {
     IN_PROGRESS = 'IN_PROGRESS',

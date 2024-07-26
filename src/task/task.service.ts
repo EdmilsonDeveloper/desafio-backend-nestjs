@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Task } from './task.model';
 import { CreateTaskDto, taskParameters, TaskPriorityEnum, TaskStatusEnum } from './task.dto';
-import { validate } from 'class-validator';
 
 @Injectable()
 export class TaskService {
@@ -23,7 +22,7 @@ export class TaskService {
         return await this.taskModel.create(createdTask);
     }
 
-    async findAll(): Promise<Task[]> {
+    findAll(): Promise<Task[]> {
         return this.taskModel.findAll();
     }
 
@@ -31,8 +30,8 @@ export class TaskService {
     //     return this.taskModel.findAll({where: {title: params}});
     // }
 
-    async update(id: string, productData): Promise<[number, Task[]]> {
-        const [affectedCount, affectedRows] = await this.taskModel.update(productData, {where: {id}, returning: true});
+    async update(id: string, taskData): Promise<[number, Task[]]> {
+        const [affectedCount, affectedRows] = await this.taskModel.update(taskData, {where: {id}, returning: true});
         return [affectedCount, affectedRows as Task[]];
     }
 
