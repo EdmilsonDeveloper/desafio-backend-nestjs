@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TaskModule } from './task/task.module';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { TagModule } from './tag/tag.module';
+import { TaskTagModule } from './task-tag/task-tag.module';
 
 @Module({
   imports:[
@@ -15,7 +16,8 @@ import { TagModule } from './tag/tag.module';
             synchronize: true,
     }),
     TaskModule,
-    TagModule,],
+    TagModule,
+    TaskTagModule,],
     exports:[SequelizeModule]
 })
 export class AppModule {}

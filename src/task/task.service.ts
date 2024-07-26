@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Task } from './task.model';
-import { CreateTaskDto, taskParameters, TaskPriorityEnum, TaskStatusEnum } from './task.dto';
+import { CreateTaskDto, TaskParameters, TaskPriorityEnum, TaskStatusEnum } from './task.dto';
+import { Op } from 'sequelize';
 
 @Injectable()
 export class TaskService {
@@ -22,13 +23,27 @@ export class TaskService {
         return await this.taskModel.create(createdTask);
     }
 
-    findAll(): Promise<Task[]> {
-        return this.taskModel.findAll();
-    }
+    async findAll(query: TaskParameters): Promise<Task[]> {
+        const where: any = {};
 
-    // async findQuery(params: taskParameters): Promise<Task[]> {
-    //     return this.taskModel.findAll({where: {title: params}});
-    // }
+        if (query.title) {
+            where.title = { [Op.like]: `%${query.title}%` }
+        }
+
+        if (query.status) {
+            where.status = query.status
+        }
+
+        if (query.priority) {
+            where.priority = query.priority
+        }
+
+        if (query.expirationDate) {
+            where.expirationDate = query.expirationDate
+        }
+
+        return this.taskModel.findAll({ where });
+    }
 
     async update(id: string, taskData): Promise<[number, Task[]]> {
         const [affectedCount, affectedRows] = await this.taskModel.update(taskData, {where: {id}, returning: true});

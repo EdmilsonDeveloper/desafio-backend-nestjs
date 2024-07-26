@@ -17,3 +17,13 @@ export class CreateTagDto {
     @IsNotEmpty()
     color: string;
 }
+
+export class TagParameters {
+    @IsString()
+    @IsOptional()
+    color: string;
+
+    @IsString()
+    @IsOptional()
+    name: string
+}

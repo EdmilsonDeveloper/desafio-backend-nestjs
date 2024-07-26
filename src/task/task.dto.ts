@@ -47,9 +47,20 @@ priority: number;
 expirationDate: Date;
 }
 
-export interface taskParameters {
-    title: string;
-    status: string;
-    priority: number;
-    expirationDate: Date;
+export class TaskParameters {
+    @IsString()
+    @IsOptional()
+    title?: string;
+
+    @IsEnum(TaskStatusEnum)
+    @IsOptional()
+    status?: string;
+
+    @IsEnum(TaskPriorityEnum)
+    @IsOptional()
+    priority?: number;
+
+    @IsDateString()
+    @IsOptional()
+    expirationDate?: Date;
 }

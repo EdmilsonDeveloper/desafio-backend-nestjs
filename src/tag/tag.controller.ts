@@ -1,6 +1,6 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { TagService } from './tag.service';
-import { CreateTagDto } from './tag.dto';
+import { CreateTagDto, TagParameters } from './tag.dto';
 import { Tag } from './tag.model';
 
 @Controller('tags')
@@ -14,14 +14,9 @@ export class TagController {
   }
 
   @Get()
-  findAll(): Promise<Tag[]> {
-    return this.tagService.findAll();
+  findAll(@Query() query: TagParameters): Promise<Tag[]> {
+    return this.tagService.findAll(query);
   }
-
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.tagService.findOne(+id);
-  // }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() tagData): Promise<[number, Tag[]]> {

@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { CreateTagDto } from './tag.dto';
+import { CreateTagDto, TagParameters } from './tag.dto';
 import { InjectModel } from '@nestjs/sequelize';
 import { Tag } from './tag.model';
+import { Op } from 'sequelize';
 
 @Injectable()
 export class TagService {
@@ -20,13 +21,19 @@ export class TagService {
     return await this.tagModel.create(createdTag);
   }
 
-  findAll(): Promise<Tag[]> {
-    return this.tagModel.findAll();
-  }
+  findAll(query: TagParameters): Promise<Tag[]> {
+    const where: any = {};
 
-  // findQuery(id: number) {
-  //   return
-  // }
+    if (query.name) {
+      where.name = { [Op.like]: `%${query.name}%` }
+    }
+
+    if (query.color) {
+      where.color = query.color
+    }
+
+    return this.tagModel.findAll({ where })
+  }
 
   async update(id: string, tagData): Promise<[number, Tag[]]> {
     const [affectedCount, affectedRows] = await this.tagModel.update(tagData, {where: {id}, returning: true});

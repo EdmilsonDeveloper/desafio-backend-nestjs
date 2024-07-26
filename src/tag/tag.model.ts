@@ -1,4 +1,6 @@
 import { Column, DataType, Model, PrimaryKey, Table } from "sequelize-typescript";
+import { TaskTag } from "src/task-tag/taskTag.model";
+import { Task } from "src/task/task.model";
 
 
 @Table({
@@ -26,3 +28,18 @@ export class Tag extends Model {
     })
     color: string
 }
+
+// Tag.belongsToMany(Task, {
+//     through: {
+//         model: TaskTag
+//     },
+//     foreignKey: 'tagId',
+//     constraints: true
+// })
+// Task.belongsToMany(Tag, {
+//     through: {
+//         model: TaskTag
+//     },
+//     foreignKey: 'taskId',
+//     constraints: true
+// })
