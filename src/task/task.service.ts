@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Task } from './task.model';
-import { taskParameters } from './task.dto';
+import { CreateTaskDto, taskParameters, TaskPriorityEnum, TaskStatusEnum } from './task.dto';
+import { validate } from 'class-validator';
 
 @Injectable()
 export class TaskService {
@@ -10,9 +11,16 @@ export class TaskService {
         private readonly taskModel: typeof Task
     ){}
 
-    async create(taskData): Promise<Task> {
-        const createTask = new Task(taskData)
-        return await createTask.save();
+    async create(taskData: CreateTaskDto): Promise<Task> {
+        const createdTask = {
+            title: taskData.title,
+            status: TaskStatusEnum.IN_PROGRESS,
+            description: taskData.description,
+            priority: TaskPriorityEnum.ONE,
+            expirationDate: taskData.expirationDate
+        };
+
+        return await this.taskModel.create(createdTask);
     }
 
     async findAll(): Promise<Task[]> {

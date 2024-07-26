@@ -22,7 +22,6 @@ export class Task extends Model<Task> {
 
     @Column({
         type: DataType.TEXT,
-        defaultValue: 'In Progress',
     })
     status: string
     
@@ -40,10 +39,4 @@ export class Task extends Model<Task> {
         type: DataType.DATEONLY
     })
     expirationDate: Date
-
-    // @Column({
-    //     type: DataType.TEXT,
-    //     references: { model: User, key: "id" },
-    // })
-    // userId: string; 
 }

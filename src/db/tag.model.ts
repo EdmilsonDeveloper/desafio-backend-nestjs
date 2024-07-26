@@ -26,10 +26,4 @@ export class Tag extends Model {
         allowNull: false,
     })
     color: string
-
-    @Column({
-        type: DataType.TEXT,
-        references: { model: User, key: "id" },
-    })
-    userId: number;
 }
