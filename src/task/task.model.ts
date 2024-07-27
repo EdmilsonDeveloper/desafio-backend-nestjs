@@ -1,4 +1,6 @@
-import { Column, DataType, Model, PrimaryKey, Sequelize, Table } from "sequelize-typescript";
+import { BelongsToMany, Column, DataType, Model, PrimaryKey, Sequelize, Table } from "sequelize-typescript";
+import { Tag } from "src/tag/tag.model";
+import { TaskTag } from "src/task-tag/taskTag.model";
 
 
 @Table({
@@ -38,4 +40,7 @@ export class Task extends Model<Task> {
         type: DataType.DATEONLY
     })
     expirationDate: Date
+
+    @BelongsToMany(() => Tag, () => TaskTag)
+    tags: Tag[]
 }

@@ -1,4 +1,6 @@
-import { Column, DataType, Model, PrimaryKey, Table } from "sequelize-typescript"
+import { Column, DataType, ForeignKey, Model, PrimaryKey, Table } from "sequelize-typescript"
+import { Tag } from "src/tag/tag.model"
+import { Task } from "src/task/task.model"
 
 
 @Table({
@@ -13,5 +15,13 @@ export class TaskTag extends Model {
         unique: true
     })
     id: string
+
+    @ForeignKey(() => Task)
+    @Column
+    taskId: string
+
+    @ForeignKey(() => Tag)
+    @Column
+    tagId: string
 }
 

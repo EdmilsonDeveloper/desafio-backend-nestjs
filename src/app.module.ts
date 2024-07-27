@@ -3,6 +3,8 @@ import { TaskModule } from './task/task.module';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { TagModule } from './tag/tag.module';
 import { TaskTagModule } from './task-tag/task-tag.module';
+import { UserModule } from './user/user.module';
+// import { databaseProviders } from './database.providers';
 
 @Module({
   imports:[
@@ -18,7 +20,9 @@ import { TaskTagModule } from './task-tag/task-tag.module';
     TaskTagModule,
     TagModule,
     TaskModule,
+    UserModule,
     ],
+    // providers:[...databaseProviders],
     exports:[SequelizeModule]
 })
 export class AppModule {}
