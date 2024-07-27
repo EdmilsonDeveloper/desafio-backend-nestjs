@@ -29,17 +29,17 @@ export class Tag extends Model {
     color: string
 }
 
-// Tag.belongsToMany(Task, {
-//     through: {
-//         model: TaskTag
-//     },
-//     foreignKey: 'tagId',
-//     constraints: true
-// })
-// Task.belongsToMany(Tag, {
-//     through: {
-//         model: TaskTag
-//     },
-//     foreignKey: 'taskId',
-//     constraints: true
-// })
+Tag.belongsToMany(Task, {
+    through: {
+        model: TaskTag
+    },
+    foreignKey: 'tagId',
+    constraints: true
+})
+Task.belongsToMany(Tag, {
+    through: {
+        model: TaskTag
+    },
+    foreignKey: 'taskId',
+    constraints: true
+})

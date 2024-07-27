@@ -15,9 +15,10 @@ import { TaskTagModule } from './task-tag/task-tag.module';
             autoLoadModels: true,
             synchronize: true,
     }),
-    TaskModule,
+    TaskTagModule,
     TagModule,
-    TaskTagModule,],
+    TaskModule,
+    ],
     exports:[SequelizeModule]
 })
 export class AppModule {}

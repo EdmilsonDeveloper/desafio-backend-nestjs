@@ -1,4 +1,3 @@
-import { DataTypes } from "sequelize";
 import { Column, DataType, Model, PrimaryKey, Sequelize, Table } from "sequelize-typescript";
 
 
