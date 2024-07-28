@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { TagService } from './tag.service';
 import { CreateTagDto, TagParameters } from './tag.dto';
-import { Tag } from './tag.model';
+import { Tag } from '../model/tag.model';
 
 @Controller('tags')
 export class TagController {
@@ -24,7 +24,7 @@ export class TagController {
   }
 
   @Delete(':id')
-  delete(@Param('id') id: string): Promise<number> {
+  delete(@Param('id') id: string) {
     return this.tagService.delete(String(id));
   }
 }

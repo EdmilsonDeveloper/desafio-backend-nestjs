@@ -1,9 +1,7 @@
 import { Module } from '@nestjs/common';
-import { TaskModule } from './task/task.module';
+import { AppsModule } from './app/apps.module';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { TagModule } from './tag/tag.module';
-import { UserModule } from './user/user.module';
-import { TasktagModule } from './tasktag/tasktag.module';
+import { UserModule } from './app/user/user.module';
 
 @Module({
   imports:[
@@ -16,10 +14,8 @@ import { TasktagModule } from './tasktag/tasktag.module';
             autoLoadModels: true,
             synchronize: true,
     }),
-    TagModule,
-    TaskModule,
+    AppsModule,
     UserModule,
-    TasktagModule,
     ],
     exports:[SequelizeModule]
 })

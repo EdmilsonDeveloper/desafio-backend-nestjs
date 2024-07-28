@@ -1,13 +1,13 @@
 import { BelongsToMany, Column, DataType, Model, PrimaryKey, Sequelize, Table } from "sequelize-typescript";
-import { Tag } from "src/tag/tag.model";
-import { TaskTag } from "src/tasktag/taskTag.model";
+import { Tag } from "src/app/model/tag.model";
+import { TaskTag } from "./taskTag.model";
 
 
 @Table({
     tableName: "task",
     freezeTableName: true,
 })
-export class Task extends Model<Task> {
+export class Task extends Model {
     @PrimaryKey
     @Column({
         type: DataType.UUID,

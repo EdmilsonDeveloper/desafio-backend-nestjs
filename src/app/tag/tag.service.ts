@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateTagDto, TagParameters } from './tag.dto';
 import { InjectModel } from '@nestjs/sequelize';
-import { Tag } from './tag.model';
+import { Tag } from '../model/tag.model';
 import { Op } from 'sequelize';
 
 @Injectable()
@@ -40,7 +40,14 @@ export class TagService {
     return [affectedCount, affectedRows as Tag[]];
   }
 
-  delete(id: string): Promise<number> {
-    return this.tagModel.destroy({where: {id}})
+  async delete(id: string) {
+    const result = await this.tagModel.destroy({where: {id}})
+
+    if (!result) {
+      throw new HttpException(
+        `Tag with id '${id}' not found`,
+        HttpStatus.BAD_REQUEST,
+      );
+  }
   }
 }

@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
 import { TaskService } from './task.service';
-import { Task } from './task.model';
+import { Task } from '../model/task.model';
 import { CreateTaskDto, TaskParameters } from './task.dto';
 
 @Controller('tasks')
@@ -24,7 +24,7 @@ export class TaskController {
     }
 
     @Delete(':id')
-    delete(@Param('id') id: string): Promise<number> {
+    delete(@Param('id') id: string) {
         return this.taskService.delete(String(id))
     }
 }

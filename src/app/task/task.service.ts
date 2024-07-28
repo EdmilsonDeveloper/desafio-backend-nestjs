@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { Task } from './task.model';
+import { Task } from '../model/task.model';
 import { CreateTaskDto, TaskParameters, TaskPriorityEnum, TaskStatusEnum } from './task.dto';
 import { Op } from 'sequelize';
 
@@ -24,7 +24,7 @@ export class TaskService {
     }
 
     async findAll(query: TaskParameters): Promise<Task[]> {
-        const where: any = {};
+        const where: any = await {};
 
         if (query.title) {
             where.title = { [Op.like]: `%${query.title}%` }
@@ -50,7 +50,14 @@ export class TaskService {
         return [affectedCount, affectedRows as Task[]];
     }
 
-    delete(id: string): Promise<number> {
-        return this.taskModel.destroy({where: {id}})
+    async delete(id: string){
+        const result = await this.taskModel.destroy({where: {id}})
+
+        if (!result) {
+            throw new HttpException(
+              `Task with id '${id}' not found`,
+              HttpStatus.BAD_REQUEST,
+            );
+        }
     }
 }
