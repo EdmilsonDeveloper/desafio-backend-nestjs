@@ -20,4 +20,10 @@ export class Session extends Model {
         allowNull: false,
     })
     token: string
+
+    @Column({
+        type: DataType.TEXT,
+        allowNull: false,
+    })
+    userId: string
 }

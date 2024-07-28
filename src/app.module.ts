@@ -2,9 +2,11 @@ import { Module } from '@nestjs/common';
 import { TaskTagModule } from './Task&Tag/tasktag.module';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { AuthModule } from './Auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports:[
+    ConfigModule.forRoot({ isGlobal: true }),
     SequelizeModule.forRoot({
       dialect: 'postgres',
             host: process.env.DB_HOST || 'localhost',
