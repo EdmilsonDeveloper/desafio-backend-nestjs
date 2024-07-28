@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { BadRequestException, HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Task } from '../model/task.model';
 import { CreateTaskDto, TaskParameters, TaskPriorityEnum, TaskStatusEnum } from './task.dto';
@@ -42,6 +42,10 @@ export class TaskService {
         const where: any = await {};
 
         if (query.title) {
+            const titleRegex = /^[a-zA-Zà-úÀ-Ú]+(([',. -][a-zA-Zà-úÀ-Ú ])?[a-zA-Zà-úÀ-Ú]+)*$/; 
+            if (!titleRegex.test(query.title)) {
+                throw new BadRequestException('Título inválido'); 
+            }
             where.title = { [Op.like]: `%${query.title}%` }
         }
 

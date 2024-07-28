@@ -1,4 +1,4 @@
-import { ExecutionContext, HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, ExecutionContext, HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { CreateTagDto, TagParameters } from './tag.dto';
 import { InjectModel } from '@nestjs/sequelize';
 import { Tag } from '../model/tag.model';
@@ -40,11 +40,19 @@ export class TagService {
     const where: any = await {};
 
     if (query.name) {
+      const nameRegex = /^[a-zA-Zà-úÀ-Ú]+(([',. -][a-zA-Zà-úÀ-Ú ])?[a-zA-Zà-úÀ-Ú]+)*$/; 
+        if (!nameRegex.test(query.name)) {
+            throw new BadRequestException('Título inválido'); 
+        }
       where.name = { [Op.like]: `%${query.name}%` }
     }
 
     if (query.color) {
-      where.color = query.color
+      const colorRegex = /^[a-zA-Zà-úÀ-Ú]+(([',. -][a-zA-Zà-úÀ-Ú ])?[a-zA-Zà-úÀ-Ú]+)*$/; 
+        if (!colorRegex.test(query.color)) {
+            throw new BadRequestException('Título inválido'); 
+        }
+      where.color = { [Op.like]: `%${query.color}%` }
     }
 
     const token = request.split(' ')[1];
