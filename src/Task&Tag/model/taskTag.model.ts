@@ -1,6 +1,6 @@
-import { BelongsToMany, Column, DataType, ForeignKey, Model, PrimaryKey, Table } from "sequelize-typescript"
-import { Tag } from "src/app/model/tag.model"
-import { Task } from "src/app/model/task.model"
+import { Column, DataType, ForeignKey, Model, PrimaryKey, Table } from "sequelize-typescript"
+import { Tag } from "./tag.model"
+import { Task } from "./task.model"
 
 
 @Table({

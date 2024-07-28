@@ -10,9 +10,9 @@ export class TasktagController {
         private readonly taskTagService: TasktagService
     ){}
 
-    @Post(':id')
-    async createTaskTag(@Param('id') id: string, @Body() taskTagData: CreateTaskTag): Promise<TaskTag> {
-        return await this.taskTagService.createTaskTag(String(id), taskTagData)
+    @Post()
+    async createTaskTag(@Body() taskTagData: CreateTaskTag): Promise<TaskTag> {
+        return await this.taskTagService.createTaskTag(taskTagData)
     }
 
     @Get()

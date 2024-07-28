@@ -15,4 +15,4 @@ import { TagService } from './tag/tag.service';
   controllers: [TaskController, TasktagController, TagController],
   providers: [TaskService, TasktagService, TagService],
 })
-export class AppsModule {}
+export class TaskTagModule {}

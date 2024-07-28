@@ -1,8 +1,8 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { TaskTag } from '../model/taskTag.model';
 import { InjectModel } from '@nestjs/sequelize';
-import { Tag } from 'src/app/model/tag.model';
-import { Task } from 'src/app/model/task.model';
+import { Tag } from '../model/tag.model';
+import { Task } from '../model/task.model';
 import { CreateTaskTag } from './taskTag.dto';
 
 @Injectable()
@@ -15,17 +15,17 @@ export class TasktagService {
         private readonly taskModel: typeof Task
     ){}
 
-    async createTaskTag(id: string, taskTagData: CreateTaskTag): Promise<TaskTag> {
+    async createTaskTag(taskTagData: CreateTaskTag): Promise<TaskTag> {
         const createdTaskTag = {
-            taskId: id,
+            taskId: taskTagData.taskId,
             tagId: taskTagData.tagId,
         }
         
         return await this.taskTagModel.create(createdTaskTag)
     }
 
-    findAll(): Promise<TaskTag[]> {
-        return this.taskTagModel.findAll()
+    async findAll(): Promise<TaskTag[]> {
+        return await this.taskTagModel.findAll()
     }    
 
     async findTasksByTag(tagId: string) {

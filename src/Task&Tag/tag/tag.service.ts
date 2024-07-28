@@ -21,8 +21,8 @@ export class TagService {
     return await this.tagModel.create(createdTag);
   }
 
-  findAll(query: TagParameters): Promise<Tag[]> {
-    const where: any = {};
+  async findAll(query: TagParameters): Promise<Tag[]> {
+    const where: any = await {};
 
     if (query.name) {
       where.name = { [Op.like]: `%${query.name}%` }

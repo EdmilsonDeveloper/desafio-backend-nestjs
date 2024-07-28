@@ -1,5 +1,5 @@
 import { BelongsToMany, Column, DataType, Model, PrimaryKey, Sequelize, Table } from "sequelize-typescript";
-import { Tag } from "src/app/model/tag.model";
+import { Tag } from "./tag.model";
 import { TaskTag } from "./taskTag.model";
 
 
