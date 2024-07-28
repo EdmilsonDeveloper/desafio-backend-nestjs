@@ -1,21 +1,21 @@
 import { IsDateString, IsEnum, IsNotEmpty, IsOptional, IsString, IsUUID, MaxLength, MinLength } from "class-validator";
 
 export enum TaskStatusEnum {
-    IN_PROGRESS = 'IN_PROGRESS',
-    FINISHED = 'FINISHED',
+IN_PROGRESS = 'IN_PROGRESS',
+FINISHED = 'FINISHED',
 }
 
 export enum TaskPriorityEnum {
-    ONE = 1,
-    TWO = 2,
-    THREE = 3,
-    FOUR = 4,
-    FIVE = 5,
-    SIX = 6,
-    SEVEN = 7,
-    EIGHT = 8,
-    NINE = 9,
-    TEN = 10,
+ONE = 1,
+TWO = 2,
+THREE = 3,
+FOUR = 4,
+FIVE = 5,
+SIX = 6,
+SEVEN = 7,
+EIGHT = 8,
+NINE = 9,
+TEN = 10,
 }
 
 export class CreateTaskDto {
@@ -47,20 +47,9 @@ priority: number;
 expirationDate: Date;
 }
 
-export class TaskParameters {
-    @IsString()
-    @IsOptional()
-    title: string;
-
-    @IsEnum(TaskStatusEnum)
-    @IsOptional()
-    status: string;
-
-    @IsEnum(TaskPriorityEnum)
-    @IsOptional()
-    priority: number;
-
-    @IsDateString()
-    @IsOptional()
-    expirationDate: Date;
+export interface TaskParameters {
+title: string;
+status: string;
+priority: number;
+expirationDate: Date;
 }

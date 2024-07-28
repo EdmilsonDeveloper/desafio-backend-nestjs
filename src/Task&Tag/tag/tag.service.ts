@@ -1,4 +1,4 @@
-import { BadRequestException, ExecutionContext, HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { CreateTagDto, TagParameters } from './tag.dto';
 import { InjectModel } from '@nestjs/sequelize';
 import { Tag } from '../model/tag.model';
@@ -80,10 +80,5 @@ export class TagService {
         HttpStatus.BAD_REQUEST,
       );
     }
-  }
-
-  private extractTokenFromHeader(request: Request): string {
-    const token = request.headers.authorization?.split(' ')[1];
-    return token
   }
 }

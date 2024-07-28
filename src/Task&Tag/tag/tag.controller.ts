@@ -3,7 +3,6 @@ import { TagService } from './tag.service';
 import { CreateTagDto, TagParameters } from './tag.dto';
 import { Tag } from '../model/tag.model';
 import { AuthGuard } from 'src/Auth/authentication/auth.guard';
-import { Request } from 'express';
 
 @UseGuards(AuthGuard)
 @Controller('tags')
