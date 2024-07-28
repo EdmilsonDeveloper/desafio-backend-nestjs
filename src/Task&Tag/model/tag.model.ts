@@ -28,6 +28,12 @@ export class Tag extends Model {
     })
     color: string
 
+    @Column({
+        type: DataType.TEXT,
+        allowNull: false,
+    })
+    userId: string
+
     @BelongsToMany(() => Task, () => TaskTag)
     tasks: Task[]
 }

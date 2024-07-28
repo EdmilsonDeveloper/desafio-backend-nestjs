@@ -3,27 +3,42 @@ import { InjectModel } from '@nestjs/sequelize';
 import { Task } from '../model/task.model';
 import { CreateTaskDto, TaskParameters, TaskPriorityEnum, TaskStatusEnum } from './task.dto';
 import { Op } from 'sequelize';
+import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class TaskService {
+    private jwtSecret: string;
     constructor(
         @InjectModel(Task)
-        private readonly taskModel: typeof Task
-    ){}
+        private readonly taskModel: typeof Task,
 
-    async create(taskData: CreateTaskDto): Promise<Task> {
+        private readonly jwtService: JwtService,
+        private readonly configService: ConfigService,
+    ){
+        this.jwtSecret = this.configService.get<string>('JWT_SECRET');
+    }
+
+    async create(taskData: CreateTaskDto, request: string): Promise<Task> {
+        const token = request.split(' ')[1];
+
+        const decoded = await this.jwtService.verifyAsync(token, {
+            secret: this.jwtSecret,
+        });
+
         const createdTask = {
             title: taskData.title,
             status: TaskStatusEnum.IN_PROGRESS,
             description: taskData.description,
             priority: TaskPriorityEnum.ONE,
-            expirationDate: taskData.expirationDate
+            expirationDate: taskData.expirationDate,
+            userId: decoded.sub,
         };
 
         return await this.taskModel.create(createdTask);
     }
 
-    async findAll(query: TaskParameters): Promise<Task[]> {
+    async findAll(query: TaskParameters, request: string): Promise<Task[]> {
         const where: any = await {};
 
         if (query.title) {
@@ -41,6 +56,14 @@ export class TaskService {
         if (query.expirationDate) {
             where.expirationDate = query.expirationDate
         }
+
+        const token = request.split(' ')[1];
+    
+        const decoded = await this.jwtService.verifyAsync(token, {
+            secret: this.jwtSecret,
+        });
+
+        where.userId = decoded.sub
 
         return this.taskModel.findAll({ where });
     }

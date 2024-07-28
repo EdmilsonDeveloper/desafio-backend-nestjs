@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards, ExecutionContext, Headers } from '@nestjs/common';
 import { TagService } from './tag.service';
 import { CreateTagDto, TagParameters } from './tag.dto';
 import { Tag } from '../model/tag.model';
 import { AuthGuard } from 'src/Auth/authentication/auth.guard';
+import { Request } from 'express';
 
 @UseGuards(AuthGuard)
 @Controller('tags')
@@ -11,13 +12,13 @@ export class TagController {
   constructor(private readonly tagService: TagService) {}
 
   @Post()
-  async create(@Body() tagData: CreateTagDto): Promise<Tag> {
-    return await this.tagService.create(tagData);
+  async create(@Headers('Authorization') request: string, @Body() tagData: CreateTagDto): Promise<Tag> {
+    return await this.tagService.create(tagData, request);
   }
 
   @Get()
-  findAll(@Query() query: TagParameters): Promise<Tag[]> {
-    return this.tagService.findAll(query);
+  findAll(@Query() query: TagParameters, @Headers('Authorization') request: string): Promise<Tag[]> {
+    return this.tagService.findAll(query, request);
   }
 
   @Patch(':id')

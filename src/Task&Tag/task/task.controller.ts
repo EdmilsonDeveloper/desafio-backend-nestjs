@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Headers, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
 import { TaskService } from './task.service';
 import { Task } from '../model/task.model';
 import { CreateTaskDto, TaskParameters } from './task.dto';
@@ -11,13 +11,13 @@ export class TaskController {
     constructor(private readonly taskService: TaskService){}
 
     @Post()
-    async create(@Body() taskData: CreateTaskDto): Promise<Task> {
-        return await this.taskService.create(taskData)
+    async create(@Body() taskData: CreateTaskDto, @Headers('Authorization') request: string): Promise<Task> {
+        return await this.taskService.create(taskData, request)
     }
 
     @Get()
-    findAll(@Query() query: TaskParameters): Promise<Task[]> {
-        return this.taskService.findAll(query);
+    findAll(@Query() query: TaskParameters, @Headers('Authorization') request: string): Promise<Task[]> {
+        return this.taskService.findAll(query, request);
     }
 
     @Patch(':id')

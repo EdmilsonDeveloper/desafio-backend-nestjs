@@ -16,6 +16,10 @@ export class CreateTagDto {
     @MaxLength(50)
     @IsNotEmpty()
     color: string;
+
+    @IsString()
+    @IsNotEmpty()
+    userId:string;
 }
 
 export class TagParameters {
@@ -26,4 +30,7 @@ export class TagParameters {
     @IsString()
     @IsOptional()
     name: string;
+
+    @IsString()
+    userID: string;
 }

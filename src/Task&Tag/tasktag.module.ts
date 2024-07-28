@@ -11,7 +11,7 @@ import { Tag } from './model/tag.model';
 import { TagService } from './tag/tag.service';
 
 @Module({
-  imports: [SequelizeModule.forFeature([Task, TaskTag, Tag])],
+  imports: [SequelizeModule.forFeature([Task, TaskTag, Tag]), ],
   controllers: [TaskController, TasktagController, TagController],
   providers: [TaskService, TasktagService, TagService],
 })

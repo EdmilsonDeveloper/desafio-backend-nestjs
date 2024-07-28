@@ -50,17 +50,17 @@ expirationDate: Date;
 export class TaskParameters {
     @IsString()
     @IsOptional()
-    title?: string;
+    title: string;
 
     @IsEnum(TaskStatusEnum)
     @IsOptional()
-    status?: string;
+    status: string;
 
     @IsEnum(TaskPriorityEnum)
     @IsOptional()
-    priority?: number;
+    priority: number;
 
     @IsDateString()
     @IsOptional()
-    expirationDate?: Date;
+    expirationDate: Date;
 }

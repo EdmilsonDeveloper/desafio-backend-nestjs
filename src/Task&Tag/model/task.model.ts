@@ -41,6 +41,12 @@ export class Task extends Model {
     })
     expirationDate: Date
 
+    @Column({
+        type: DataType.TEXT,
+        allowNull: false,
+    })
+    userId: string
+
     @BelongsToMany(() => Tag, () => TaskTag)
     tags: Tag[]
 }
