@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TaskTagModule } from './Task&Tag/tasktag.module';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { UserModule } from './Task&Tag/user/user.module';
+import { AuthModule } from './Auth/auth.module';
 
 @Module({
   imports:[
@@ -15,7 +15,7 @@ import { UserModule } from './Task&Tag/user/user.module';
             synchronize: true,
     }),
     TaskTagModule,
-    UserModule,
+    AuthModule,
     ],
     exports:[SequelizeModule]
 })

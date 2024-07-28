@@ -25,5 +25,5 @@ export class TagParameters {
 
     @IsString()
     @IsOptional()
-    name: string
+    name: string;
 }

@@ -1,12 +1,15 @@
-import { IsOptional, IsString } from "class-validator"
+import { IsNotEmpty, IsOptional, IsString, IsUUID } from "class-validator"
 
 export class CreateTaskTag {
-    tagId: string
-    taskId: string
-}
-
-export class TaksTagParameters {
-    @IsString()
+    @IsUUID()
     @IsOptional()
-    name: string
+    id: string;
+
+    @IsString()
+    @IsNotEmpty()
+    tagId: string;
+
+    @IsString()
+    @IsNotEmpty()
+    taskId: string;
 }

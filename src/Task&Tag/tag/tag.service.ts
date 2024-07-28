@@ -48,6 +48,6 @@ export class TagService {
         `Tag with id '${id}' not found`,
         HttpStatus.BAD_REQUEST,
       );
-  }
+    }
   }
 }

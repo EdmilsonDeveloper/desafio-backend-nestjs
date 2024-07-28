@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { UserService } from './user.service';
-import { UserController } from './user.controller';
-import { User } from '../model/user.model';
+import { UserService } from './user/user.service';
+import { UserController } from './user/user.controller';
+import { User } from './model/user.model';
 import { SequelizeModule } from '@nestjs/sequelize';
 
 @Module({
@@ -9,4 +9,4 @@ import { SequelizeModule } from '@nestjs/sequelize';
   controllers: [UserController],
   providers: [UserService],
 })
-export class UserModule {}
+export class AuthModule {}
